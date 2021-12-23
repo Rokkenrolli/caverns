@@ -33,6 +33,7 @@ class Particle {
       for (let a = 0; a < this.nroOfRays; a++ ) {
         const ray = new Ray(this.pos, p5.radians(a* angleIncrement + this.angle))
         ray.alpha = (Math.abs(this.angle - ray.angle) / (0.5 * this.fov)) * 100
+        //console.log(` node angle ${this.angle} ray angle ${ray.angle}alpha values: ${ray.alpha}`)
         this.rays.push(ray)
       }
     }
@@ -95,7 +96,7 @@ class Particle {
         }
 
       }
-      console.log(`number of rays: ${this.rays.length}, number of casted rays: ${casted_rays}, number of casted walls ${casted_wall}`)
+      //console.log(`number of rays: ${this.rays.length}, number of casted rays: ${casted_rays}, number of casted walls ${casted_wall}`)
     }
     
     show(p5:p5Types) {
