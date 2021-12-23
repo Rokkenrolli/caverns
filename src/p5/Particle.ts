@@ -22,7 +22,7 @@ class Particle {
       this.maxRayLength = maxRayLength
       this.nroOfRays = nroOfRays
       this.fov = fov
-      this.angle = angle
+      this.angle = p5.radians(angle)
       
     }
 
