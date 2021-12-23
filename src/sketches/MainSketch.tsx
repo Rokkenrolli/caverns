@@ -43,7 +43,12 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
     );
   };
 
+  const keyPressed = (p5: p5Types) => {
+    particle.onKeyDown(p5);
+  };
+
   const draw = (p5: p5Types) => {
+    keyPressed(p5);
     p5.background(0);
     particle.updateRays(p5);
     particle.updatePosition(p5.mouseX, p5.mouseY);
@@ -54,7 +59,7 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
     particle.show(p5);
     particle.look(p5, walls, false);
     //particle.nearby(p5, walls);
-    particle.angle += p5.radians(1);
+    //particle.angle += p5.radians(1);
     for (let wall of walls) {
       wall.show(p5);
     }
