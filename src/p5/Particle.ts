@@ -11,14 +11,16 @@ class Particle {
     public maxRayLength:number | undefined
     public size:number
     public visionRadius:number
-    constructor(p5:p5Types,pos: p5Types.Vector,size:number,visionRadius=10, maxRayLength?:number) {
+    
+    constructor(p5:p5Types,pos: p5Types.Vector,size:number,visionRadius=10,nroOfRays = 360, maxRayLength?:number) {
       this.size = size
       this.pos = pos
       this.rays = []
       this.visionRadius = visionRadius
       this.maxRayLength = maxRayLength
-      for (let a = 0; a < 360; a ++ ) {
-        this.rays.push(new Ray(this.pos, p5.radians(a)))
+      let angleIncrement = 360 / nroOfRays
+      for (let a = 0; a < nroOfRays; a++ ) {
+        this.rays.push(new Ray(this.pos, p5.radians(a* angleIncrement)))
       }
     }
     

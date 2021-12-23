@@ -8,7 +8,7 @@ class Boundary {
     public b:p5Types.Vector 
     public fullyVisible = false
     private maxPoints: MaxPoints
-    constructor(p5:p5Types,x1:number, y1:number, x2:number, y2:number, visiblePoints = []) {
+    constructor(p5:p5Types,x1:number, y1:number, x2:number, y2:number) {
       this.a = p5.createVector(x1, y1)
       this.b = p5.createVector(x2, y2)
       this.maxPoints = {p1:undefined, p2:undefined, distance:0}
