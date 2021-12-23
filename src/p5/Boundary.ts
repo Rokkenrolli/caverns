@@ -50,6 +50,7 @@ class Boundary {
       p5.stroke(255)
       if (this.fullyVisible) {
         p5.line(this.a.x,this.a.y,this.b.x,this.b.y)
+        return
       }
       if (!(this.maxPoints.p1 &&this.maxPoints.p2)) {
         return

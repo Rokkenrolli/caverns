@@ -20,23 +20,3 @@ export interface MaxPoints {
 }
 
 
-export const farthestPoints = (vectors: p5Types.Vector[]) => {
-    const n = vectors.length
-    
-    let max1:p5Types.Vector = vectors[0]
-    let max2:p5Types.Vector = vectors[1]
-    let max = 0
-    for (let i = 0; i< n; i++) {
-        for (let j = i+1; j<n; j++) {
-            const p1 = vectors[i]
-            const p2 = vectors[j]
-            const dist = p5Types.Vector.dist(p1,p2)
-            if (dist > max) {
-                max = dist
-                max1 = p1
-                max2 = p2
-            }
-        }
-    }
-    return [max1,max2]
-}

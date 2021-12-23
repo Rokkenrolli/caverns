@@ -1,11 +1,11 @@
 import React from "react";
 import MainSketch from "./sketches/MainSketch";
+import styles from "./styles/app.module.css";
 
 const App = () => {
   return (
-    <div className="App">
-      <h1>Hello</h1>
-      <MainSketch width={1200} height={900} />
+    <div className={styles.container}>
+      <MainSketch width={800} height={800} />
     </div>
   );
 };

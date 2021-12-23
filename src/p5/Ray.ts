@@ -24,8 +24,8 @@ class Ray {
       this.dir.y = y - this.pos.y
       this.dir.normalize()
     }
-    
-    cast(p5:p5Types, wall:Boundary) {
+
+    rayCast = (p5:p5Types, wall:Boundary) => {
       const x1 = wall.a.x
       const y1 = wall.a.y
       const x2 = wall.b.x
@@ -58,6 +58,12 @@ class Ray {
         return undefined
       }
     }
-  }
 
+    
+    
+    
+  cast(p5:p5Types, wall:Boundary) {
+     return this.rayCast(p5,wall)
+  }
+}
   export default Ray

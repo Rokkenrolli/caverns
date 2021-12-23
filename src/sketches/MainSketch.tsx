@@ -21,7 +21,7 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
     walls.push(new Boundary(p5, p5.width, p5.height, 0, p5.height));
     walls.push(new Boundary(p5, 0, p5.height, 0, 0));
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       let x1 = p5.random(p5.width);
       let y1 = p5.random(p5.height);
       let x2 = p5.random(p5.width);
@@ -30,12 +30,13 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
       walls.push(wall);
     }
 
+    console.log(walls);
     particle = new Particle(
       p5,
       p5.createVector(100, 200),
       5,
-      150,
-      1200,
+      75,
+      500,
       undefined
     );
   };
@@ -44,8 +45,13 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
     p5.background(0);
 
     particle.update(p5.mouseX, p5.mouseY);
+    walls.forEach((b) => {
+      b.clearMaxPoints();
+      b.fullyVisible = false;
+    });
     particle.show(p5);
     particle.look(p5, walls);
+    //particle.nearby(p5, walls);
 
     for (let wall of walls) {
       wall.show(p5);
