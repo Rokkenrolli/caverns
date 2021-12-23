@@ -38,7 +38,7 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
       75,
       180,
       90,
-      30,
+      360,
       undefined
     );
   };

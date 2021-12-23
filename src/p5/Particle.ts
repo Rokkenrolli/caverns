@@ -14,6 +14,8 @@ class Particle {
     public angle:number
     public fov: number    
     public nroOfRays:number
+
+
     constructor(p5:p5Types,pos: p5Types.Vector,size:number,visionRadius:number,angle:number, fov:number,nroOfRays = 360, maxRayLength?:number) {
       this.size = size
       this.pos = pos
@@ -31,8 +33,8 @@ class Particle {
       let angleIncrement = this.fov / this.nroOfRays
 
       for (let a = 0; a < this.nroOfRays; a++ ) {
-        const angle =a* angleIncrement + this.angle
-        const alpha = (Math.abs(this.angle - angle) / (0.5 * this.fov)) * 100
+        const angle =(a* angleIncrement) + this.angle
+        const alpha = (Math.abs(this.angle - angle) / (0.5*this.fov)) * 100
         const ray = new Ray(this.pos, angle,alpha)
         
         //console.log(` node angle ${this.angle} ray angle ${ray.angle}alpha values: ${ray.alpha}`)
@@ -86,7 +88,7 @@ class Particle {
         })
         
         if (hit.closest) {
-          p5.stroke(255, 80)
+          p5.stroke(255, ray.alpha)
           p5.strokeWeight(2)
           p5.line(this.pos.x, this.pos.y, hit.closest.x, hit.closest.y)
           if (hit.wall) {
