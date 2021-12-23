@@ -11,16 +11,29 @@ class Particle {
     public maxRayLength:number | undefined
     public size:number
     public visionRadius:number
-    
-    constructor(p5:p5Types,pos: p5Types.Vector,size:number,visionRadius:number,nroOfRays = 360, maxRayLength?:number) {
+    public angle:number
+    public fov: number    
+    public nroOfRays:number
+    constructor(p5:p5Types,pos: p5Types.Vector,size:number,visionRadius:number,angle:number, fov:number,nroOfRays = 360, maxRayLength?:number) {
       this.size = size
       this.pos = pos
       this.rays = []
       this.visionRadius = visionRadius
       this.maxRayLength = maxRayLength
-      let angleIncrement = 360 / nroOfRays
-      for (let a = 0; a < nroOfRays; a++ ) {
-        this.rays.push(new Ray(this.pos, p5.radians(a* angleIncrement)))
+      this.nroOfRays = nroOfRays
+      this.fov = fov
+      this.angle = angle
+      
+    }
+
+    updateRays(p5:p5Types) {
+      this.rays= []
+      let angleIncrement = this.fov / this.nroOfRays
+
+      for (let a = 0; a < this.nroOfRays; a++ ) {
+        const ray = new Ray(this.pos, p5.radians(a* angleIncrement + this.angle))
+        ray.alpha = (Math.abs(this.angle - ray.angle) / (0.5 * this.fov)) * 100
+        this.rays.push(ray)
       }
     }
     
@@ -121,6 +134,10 @@ class Particle {
   if (t2>= 0 && t2 <= 1) {
     const point = p5Types.Vector.add(wall.a,p5Types.Vector.mult(d,t2))
     points.push(point)
+  }
+  if (t1 <0 && t2 > 1 ) {
+    points.push(wall.a)
+    points.push(wall.b)
   }
 
   return points  

@@ -6,13 +6,17 @@ class Ray {
     
     public pos:p5Types.Vector
     public dir:p5Types.Vector
-    constructor(pos:p5Types.Vector, angle:number) {
+    public alpha:number |undefined
+    public angle:number
+    constructor(pos:p5Types.Vector, angle:number,alpha?:number) {
       this.pos = pos
       this.dir = p5Types.Vector.fromAngle(angle)
+      this.alpha = alpha
+      this.angle = angle
     }
     
     show(p5:p5Types) {
-      p5.stroke(255)
+      p5.stroke(255, this.alpha)
       p5.push()
       p5.translate(this.pos.x, this.pos.y)
       p5.line(0, 0, this.dir.x * 50, this.dir.y * 50)
