@@ -8,7 +8,7 @@ class Ray {
     public dir:p5Types.Vector
     public alpha:number |undefined
     public angle:number
-    constructor(pos:p5Types.Vector, angle:number,alpha?:number) {
+    constructor(pos:p5Types.Vector, angle:number,alpha = 255) {
       this.pos = pos
       this.dir = p5Types.Vector.fromAngle(angle)
       this.alpha = alpha

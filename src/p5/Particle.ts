@@ -21,7 +21,7 @@ class Particle {
       this.visionRadius = visionRadius
       this.maxRayLength = maxRayLength
       this.nroOfRays = nroOfRays
-      this.fov = fov
+      this.fov = p5.radians(fov)
       this.angle = p5.radians(angle)
       
     }
@@ -31,14 +31,16 @@ class Particle {
       let angleIncrement = this.fov / this.nroOfRays
 
       for (let a = 0; a < this.nroOfRays; a++ ) {
-        const ray = new Ray(this.pos, p5.radians(a* angleIncrement + this.angle))
-        ray.alpha = (Math.abs(this.angle - ray.angle) / (0.5 * this.fov)) * 100
+        const angle =a* angleIncrement + this.angle
+        const alpha = (Math.abs(this.angle - angle) / (0.5 * this.fov)) * 100
+        const ray = new Ray(this.pos, angle,alpha)
+        
         //console.log(` node angle ${this.angle} ray angle ${ray.angle}alpha values: ${ray.alpha}`)
         this.rays.push(ray)
       }
     }
     
-    update(x:number, y:number) {
+    updatePosition(x:number, y:number) {
       this.pos.set(x, y)
     }
     
@@ -106,11 +108,7 @@ class Particle {
       p5.stroke(255, 40)
       p5.noFill()
       p5.ellipse(this.pos.x,this.pos.y,this.visionRadius*2)
-      /*  
-       for (const ray of this.rays) {
-         ray.show(p5)
-      }
-      */
+     
     }
 
   circleLineIntersection =(p5:p5Types,radius:number, wall:Boundary):p5Types.Vector[] =>{

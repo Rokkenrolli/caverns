@@ -35,10 +35,10 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
       p5,
       p5.createVector(100, 200),
       5,
-      150,
-      0,
+      75,
+      180,
       90,
-      500,
+      30,
       undefined
     );
   };
@@ -46,7 +46,7 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
   const draw = (p5: p5Types) => {
     p5.background(0);
     particle.updateRays(p5);
-    particle.update(p5.mouseX, p5.mouseY);
+    particle.updatePosition(p5.mouseX, p5.mouseY);
     walls.forEach((b) => {
       b.clearMaxPoints();
       b.fullyVisible = false;
@@ -54,7 +54,7 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
     particle.show(p5);
     particle.look(p5, walls, false);
     //particle.nearby(p5, walls);
-    particle.angle += 1;
+    particle.angle += p5.radians(1);
     for (let wall of walls) {
       wall.show(p5);
     }
