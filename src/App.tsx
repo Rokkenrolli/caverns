@@ -1,14 +1,13 @@
-import React from 'react';
-import MainSketch from './sketches/MainSketch';
+import React from "react";
+import MainSketch from "./sketches/MainSketch";
 
-
-const  App =() => {
+const App = () => {
   return (
     <div className="App">
       <h1>Hello</h1>
-      <MainSketch width={1200} height={1600}/>
+      <MainSketch width={1200} height={900} />
     </div>
   );
-}
+};
 
 export default App;
