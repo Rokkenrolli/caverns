@@ -37,14 +37,16 @@ const VictoryScreen: React.FC<VictoryProps> = ({
           className={textClassName}
         />
       )}
-      <img className={imgClassname} src={img} alt="palkinto" />
-      <h1
-        className={classnames(styles.upgrade, {
-          [styles.upgactive]: textFinished,
-        })}
-      >
-        Upgraded
-      </h1>
+      {enabled && <img className={imgClassname} src={img} alt="palkinto" />}
+      {enabled && (
+        <h1
+          className={classnames(styles.upgrade, {
+            [styles.upgactive]: textFinished,
+          })}
+        >
+          Upgraded
+        </h1>
+      )}
     </div>
   );
 };
