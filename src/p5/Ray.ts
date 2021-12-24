@@ -11,8 +11,8 @@ class Ray {
     constructor(pos:p5Types.Vector, angle:number,alpha = 255) {
       this.pos = pos
       this.dir = p5Types.Vector.fromAngle(angle)
-      this.alpha = alpha
-      this.angle = angle
+      this.alpha = alpha;
+      this.angle = angle;
     }
     
     show(p5:p5Types) {
