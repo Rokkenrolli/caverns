@@ -32,7 +32,8 @@ class Particle {
       this.angle += angle
     }
 
-    onKeyDown = (p5:p5Types, tiltAmount =2) => {
+    onKeyDown = (p5:p5Types, tiltAmount =2, multAmount=0.1) => {
+      const dirvec= p5Types.Vector.fromAngle(this.angle).mult(multAmount) 
       
       if(p5.keyIsDown(p5.LEFT_ARROW)) {
         this.tiltAngle(p5.radians(-tiltAmount))
@@ -41,10 +42,13 @@ class Particle {
         this.tiltAngle(p5.radians(tiltAmount))
       }
       if(p5.keyIsDown(p5.UP_ARROW)) {
-        this.pos.add(p5Types.Vector.fromAngle(this.angle))
+        console.log(`current angle vector (${dirvec.x}, ${dirvec.y})`)
+        this.pos.add(dirvec)
       }
       if(p5.keyIsDown(p5.DOWN_ARROW)) {
-        this.pos.sub(p5Types.Vector.fromAngle(this.angle))
+        console.log(`current angle vector ${dirvec}`)
+        this.pos.sub(dirvec)
+
       }
         
   }

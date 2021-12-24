@@ -51,7 +51,7 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
     keyPressed(p5);
     p5.background(0);
     particle.updateRays(p5);
-    particle.updatePosition(p5.mouseX, p5.mouseY);
+    //particle.updatePosition(p5.mouseX, p5.mouseY);
     walls.forEach((b) => {
       b.clearMaxPoints();
       b.fullyVisible = false;
