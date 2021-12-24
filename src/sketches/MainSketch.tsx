@@ -8,6 +8,7 @@ export interface ComponentProps {
   width: number;
   height: number;
   wallProps: BoundaryProps[];
+  setVictory: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
 }
 

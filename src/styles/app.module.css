@@ -5,5 +5,11 @@
     margin:2em;
     justify-content: center;
     align-items: center;
+}
 
+.background {
+    background-color: #696FF5;
+    padding:5em;
+    margin:1em;
+    height:80vh;
 }

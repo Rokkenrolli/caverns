@@ -1,0 +1,19 @@
+
+
+.victory-container {
+    align-self: center;
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+    transition: all 660ms ease-in-out;
+    transform: translateY(0%);
+    background-color: #DE6EFF;
+    padding: 2em;
+    border-radius: 0.25em;
+}
+
+.visible {
+    visibility: visible;
+    transform: translateY(120%);
+    opacity: 1;
+}
