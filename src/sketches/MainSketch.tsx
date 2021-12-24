@@ -21,6 +21,7 @@ const MainSketch: React.FC<ComponentProps> = ({
   areaHeight,
   areaWidth,
   wallProps,
+  setVictory,
 }) => {
   let walls: Boundary[] = [];
   let particle: Particle;
@@ -100,6 +101,15 @@ const MainSketch: React.FC<ComponentProps> = ({
     }
   };
 
+  const checkVictory = () => {
+    return particle.pos.x > 1900 && particle.pos.y < 100;
+  };
+  const drawBall = (p5: p5Types, color: number, x: number, y: number) => {
+    p5.noStroke();
+    p5.fill(255, 150, 170);
+    p5.ellipse(x, y, 15);
+  };
+
   const draw = (p5: p5Types) => {
     keyPressed(p5);
     p5.background(0);
@@ -115,6 +125,13 @@ const MainSketch: React.FC<ComponentProps> = ({
     //particle.angle += p5.radians(1);
     for (let wall of walls) {
       wall.show(p5, cameraPos);
+    }
+
+    const victory = checkVictory();
+    drawBall(p5, 255, 1900 - cameraPos.x, 100 - cameraPos.y);
+    console.log(particle.pos.x, particle.pos.y);
+    if (victory) {
+      setVictory(true);
     }
   };
 
