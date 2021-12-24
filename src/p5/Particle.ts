@@ -1,4 +1,3 @@
-import { dir } from "console"
 import p5Types from "p5"
 import { Hit } from "../utils"
 import Boundary from "./Boundary"
