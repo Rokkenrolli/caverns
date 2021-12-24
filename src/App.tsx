@@ -20,9 +20,6 @@ const App = () => {
   const victoryText =
     "Onneksi Olkoon!\n Olette voittaneet, ja palkinnoksi...\n Upgrade!";
 
-  setInterval(() => {
-    setVictory(true);
-  }, 2000);
 
   return (
     <div className={styles.background}>
