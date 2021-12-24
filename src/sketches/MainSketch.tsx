@@ -2,14 +2,21 @@ import Sketch from "react-p5";
 import p5Types from "p5";
 import Boundary from "../p5/Boundary";
 import Particle from "../p5/Particle";
+import { BoundaryProps } from "../utils";
 
-interface ComponentProps {
+export interface ComponentProps {
   width: number;
   height: number;
+  wallProps: BoundaryProps[];
   className?: string;
 }
 
-const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
+const MainSketch: React.FC<ComponentProps> = ({
+  width,
+  height,
+  className,
+  wallProps,
+}) => {
   let walls: Boundary[] = [];
   let particle: Particle;
 
@@ -21,14 +28,9 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
     walls.push(new Boundary(p5, p5.width, p5.height, 0, p5.height));
     walls.push(new Boundary(p5, 0, p5.height, 0, 0));
 
-    for (let i = 0; i < 5; i++) {
-      let x1 = p5.random(p5.width);
-      let y1 = p5.random(p5.height);
-      let x2 = p5.random(p5.width);
-      let y2 = p5.random(p5.height);
-      const wall = new Boundary(p5, x1, y1, x2, y2);
-      walls.push(wall);
-    }
+    wallProps.forEach((w) =>
+      walls.push(new Boundary(p5, w.x1, w.y1, w.x2, w.y2, w.solid))
+    );
 
     console.log(walls);
     particle = new Particle(
@@ -51,7 +53,7 @@ const MainSketch: React.FC<ComponentProps> = ({ width, height, className }) => {
     keyPressed(p5);
     p5.background(0);
     particle.updateRays(p5);
-    //particle.updatePosition(p5.mouseX, p5.mouseY);
+    particle.updatePosition(p5.mouseX, p5.mouseY);
     walls.forEach((b) => {
       b.clearMaxPoints();
       b.fullyVisible = false;

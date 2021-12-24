@@ -7,11 +7,13 @@ class Boundary {
     public a:p5Types.Vector   
     public b:p5Types.Vector 
     public fullyVisible = false
+    public solid:boolean
     private maxPoints: MaxPoints
-    constructor(p5:p5Types,x1:number, y1:number, x2:number, y2:number) {
+    constructor(p5:p5Types,x1:number, y1:number, x2:number, y2:number, solid = false) {
       this.a = p5.createVector(x1, y1)
       this.b = p5.createVector(x2, y2)
       this.maxPoints = {p1:undefined, p2:undefined, distance:0}
+      this.solid = solid
     }
     
     addPoint(point: p5Types.Vector) {

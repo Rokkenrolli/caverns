@@ -1,0 +1,11 @@
+w800 h800
+xf0 xs1000 yf0 ys1000 sbtrue
+xf0 xs1000 yf100 ys1010 sbtrue
+end
+
+
+
+
+
+
+
