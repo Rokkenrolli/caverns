@@ -21,7 +21,7 @@ const VictoryScreen: React.FC<VictoryProps> = ({
 
   setInterval(() => {
     setTextFinished(true);
-  }, 5000);
+  }, 6000);
 
   const imgClassname = classnames(styles.spinning, {
     [styles.active]: textFinished,
@@ -38,6 +38,13 @@ const VictoryScreen: React.FC<VictoryProps> = ({
         />
       )}
       <img className={imgClassname} src={img} alt="palkinto" />
+      <h1
+        className={classnames(styles.upgrade, {
+          [styles.upgactive]: textFinished,
+        })}
+      >
+        Upgraded
+      </h1>
     </div>
   );
 };
