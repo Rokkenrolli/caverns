@@ -32,7 +32,12 @@ const MainSketch: React.FC<ComponentProps> = ({
     p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
 
     worldSize = p5.createVector(areaWidth, areaHeight);
-    cameraPos = p5.createVector(areaWidth / 2, areaHeight);
+    cameraPos = p5.createVector((areaWidth - canvasWidth)/ 2, (areaHeight - canvasWidth)/2);
+    walls.push(new Boundary(p5, 0, 0, worldSize.x, 0, true));
+    walls.push(new Boundary(p5, 0, 0, 0, worldSize.y, true));
+    walls.push(new Boundary(p5, worldSize.x, worldSize.y, worldSize.x, 0, true));
+    walls.push(new Boundary(p5, worldSize.x, worldSize.y, 0, worldSize.y, true));
+    
     for (let i = 0; i < 10; i++) {
       let x1 = p5.random(worldSize.x);
       let y1 = p5.random(worldSize.y);
@@ -45,12 +50,12 @@ const MainSketch: React.FC<ComponentProps> = ({
     console.log(walls);
     particle = new Particle(
       p5,
-      p5.createVector(1100, 1200),
+      p5.createVector(areaWidth/2, areaHeight/2),
       5,
       75,
       180,
       90,
-      360,
+      90,
       undefined
     );
   };
@@ -59,14 +64,14 @@ const MainSketch: React.FC<ComponentProps> = ({
     particle.onKeyDown(p5);
   };
   const moveCamera = (p5: p5Types, particlePos: p5Types.Vector) => {
-    const maxDistFromCenter = 30;
+    const maxDistFromCenter = 100;
     let distFromCenter = particlePos.copy();
     let halfScreen = p5.createVector(p5.width, p5.height);
     halfScreen.div(2);
     distFromCenter.sub(halfScreen);
     distFromCenter.sub(cameraPos);
-    if (distFromCenter.x < -maxDistFromCenter) {
-      cameraPos.set(particlePos.x - halfScreen.x + maxDistFromCenter);
+    if (distFromCenter.x < -maxDistFromCenter){
+      cameraPos.set(particlePos.x - halfScreen.x + maxDistFromCenter, cameraPos.y); 
     }
     if (distFromCenter.x > maxDistFromCenter) {
       cameraPos.set(
