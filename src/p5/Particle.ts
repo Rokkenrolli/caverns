@@ -59,11 +59,11 @@ class Particle {
       this.rays= []
       let angleIncrement = this.fov / this.nroOfRays
       let startAngle = this.angle - this.fov / 2.0;
-      
+      const maxAlpha = 120
 
       for (let a = 0; a < this.nroOfRays; a++ ) {
         const angle =(a* angleIncrement) + startAngle;
-        const alpha = 80;
+        const alpha = (1 - Math.abs(a - this.nroOfRays/2.0)/(this.nroOfRays/2.0)) * maxAlpha;
         const ray = new Ray(this.pos, angle,alpha)
         
         //console.log(` node angle ${this.angle} ray angle ${ray.angle}alpha values: ${ray.alpha}`)
