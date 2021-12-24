@@ -32,15 +32,12 @@ const MainSketch: React.FC<ComponentProps> = ({
     p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
 
     worldSize = p5.createVector(areaWidth, areaHeight);
-    cameraPos = p5.createVector(areaWidth / 2, areaHeight);
-    for (let i = 0; i < 10; i++) {
-      let x1 = p5.random(worldSize.x);
-      let y1 = p5.random(worldSize.y);
-      let x2 = p5.random(worldSize.x);
-      let y2 = p5.random(worldSize.y);
-      const wall = new Boundary(p5, x1, y1, x2, y2, true);
-      walls.push(wall);
-    }
+    cameraPos = p5.createVector(areaWidth / 2, areaHeight / 2);
+    wallProps.forEach((wall) => {
+      walls.push(
+        new Boundary(p5, wall.x1, wall.y1, wall.x2, wall.y2, wall.solid)
+      );
+    });
 
     console.log(walls);
     particle = new Particle(

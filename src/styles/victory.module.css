@@ -14,6 +14,26 @@
 
 .visible {
     visibility: visible;
-    transform: translateY(120%);
+    transform: translateY(50%);
     opacity: 1;
+    
+}
+
+.spinning {
+    transition: all 660ms ease-in-out;
+ 
+}
+
+.active {
+    transform: rotate(1080deg) scale(1);
+    animation : scale-spin 3s ease-in forwards;
+    animation-delay: 5s;
+}
+
+@keyframes scale-spin {
+    from {
+        transform: scale(0) rotate(0);
+    } to {
+        transform: rotate(1080deg) scale(1);
+    }
 }

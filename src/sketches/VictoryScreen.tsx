@@ -1,7 +1,8 @@
 import styles from "../styles/victory.module.css";
 import classnames from "classnames";
 import AnimatedText from "../components/AnimatedText";
-
+import img from "../images/paper2.png";
+import { useState } from "react";
 interface VictoryProps {
   enabled: boolean;
   victoryText: string;
@@ -15,6 +16,17 @@ const VictoryScreen: React.FC<VictoryProps> = ({
   const className = classnames(styles["victory-container"], {
     [styles.visible]: enabled,
   });
+
+  const [textFinished, setTextFinished] = useState(false);
+
+  setInterval(() => {
+    setTextFinished(true);
+  }, 5000);
+
+  const imgClassname = classnames(styles.spinning, {
+    [styles.active]: textFinished,
+  });
+
   return (
     <div className={className}>
       {enabled && (
@@ -25,7 +37,7 @@ const VictoryScreen: React.FC<VictoryProps> = ({
           className={textClassName}
         />
       )}
-      <img alt="palkinto" />
+      <img className={imgClassname} src={img} alt="palkinto" />
     </div>
   );
 };
