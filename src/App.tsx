@@ -18,10 +18,11 @@ const App = () => {
     inner();
   }, []);
 
+  /*
   setInterval(() => {
     setVictory(true);
   }, 2000);
-
+*/
   return (
     <div className={styles.background}>
       <div className={styles.container}>
