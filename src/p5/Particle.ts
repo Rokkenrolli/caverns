@@ -34,7 +34,7 @@ class Particle {
     }
 
     onKeyDown = (p5:p5Types, tiltAmount =2, multAmount=1.3) => {
-      const dirvec= p5Types.Vector.fromAngle(this.angle+Math.PI/4).mult(multAmount) 
+      const dirvec= p5Types.Vector.fromAngle(this.angle).mult(multAmount) 
       
       if(p5.keyIsDown(p5.LEFT_ARROW)) {
         this.tiltAngle(p5.radians(-tiltAmount))
@@ -58,10 +58,12 @@ class Particle {
     updateRays(p5:p5Types) {
       this.rays= []
       let angleIncrement = this.fov / this.nroOfRays
+      let startAngle = this.angle - this.fov / 2.0;
+      const maxAlpha = 120
 
       for (let a = 0; a < this.nroOfRays; a++ ) {
-        const angle =(a* angleIncrement) + this.angle
-        const alpha = (Math.abs(this.angle - angle) / (0.5*this.fov)) * 100
+        const angle =(a* angleIncrement) + startAngle;
+        const alpha = (1 - Math.abs(a - this.nroOfRays/2.0)/(this.nroOfRays/2.0)) * maxAlpha;
         const ray = new Ray(this.pos, angle,alpha)
         
         //console.log(` node angle ${this.angle} ray angle ${ray.angle}alpha values: ${ray.alpha}`)
