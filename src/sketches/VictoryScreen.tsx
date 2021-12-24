@@ -1,18 +1,30 @@
 import styles from "../styles/victory.module.css";
 import classnames from "classnames";
+import AnimatedText from "../components/AnimatedText";
 
 interface VictoryProps {
   enabled: boolean;
+  victoryText: string;
+  textClassName?: string;
 }
-const VictoryScreen: React.FC<VictoryProps> = ({ enabled }) => {
+const VictoryScreen: React.FC<VictoryProps> = ({
+  enabled,
+  victoryText,
+  textClassName,
+}) => {
   const className = classnames(styles["victory-container"], {
     [styles.visible]: enabled,
   });
   return (
     <div className={className}>
-      <h1>Onneksi olkoon!</h1>
-      <p>Olette Löytaneet luolan salaisuuden</p>
-      <p>Ja palkinnoksi... </p>
+      {enabled && (
+        <AnimatedText
+          text={victoryText}
+          initialDelay={1.5}
+          delayIncrement={0.05}
+          className={textClassName}
+        />
+      )}
       <img alt="palkinto" />
     </div>
   );

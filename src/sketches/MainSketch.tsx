@@ -5,17 +5,21 @@ import Particle from "../p5/Particle";
 import { BoundaryProps } from "../utils";
 
 export interface ComponentProps {
-  width: number;
-  height: number;
+  canvasWidth: number;
+  canvasHeight: number;
   wallProps: BoundaryProps[];
+  areaWidth: number;
+  areaHeight: number;
   setVictory: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
 }
 
 const MainSketch: React.FC<ComponentProps> = ({
-  width,
-  height,
+  canvasWidth,
+  canvasHeight,
   className,
+  areaHeight,
+  areaWidth,
   wallProps,
 }) => {
   let walls: Boundary[] = [];
@@ -25,10 +29,10 @@ const MainSketch: React.FC<ComponentProps> = ({
 
   //See annotations in JS for more information
   const setup = (p5: p5Types, canvasParentRef: Element) => {
-    p5.createCanvas(width, height).parent(canvasParentRef);
+    p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
 
-    worldSize = p5.createVector(2000, 2000);
-    cameraPos = p5.createVector(1000, 1000);
+    worldSize = p5.createVector(areaWidth, areaHeight);
+    cameraPos = p5.createVector(areaWidth / 2, areaHeight);
     for (let i = 0; i < 10; i++) {
       let x1 = p5.random(worldSize.x);
       let y1 = p5.random(worldSize.y);
@@ -61,19 +65,28 @@ const MainSketch: React.FC<ComponentProps> = ({
     halfScreen.div(2);
     distFromCenter.sub(halfScreen);
     distFromCenter.sub(cameraPos);
-    if (distFromCenter.x < -maxDistFromCenter){
-      cameraPos.set(particlePos.x - halfScreen.x + maxDistFromCenter); 
+    if (distFromCenter.x < -maxDistFromCenter) {
+      cameraPos.set(particlePos.x - halfScreen.x + maxDistFromCenter);
     }
-    if (distFromCenter.x > maxDistFromCenter){
-      cameraPos.set(particlePos.x - halfScreen.x - maxDistFromCenter, cameraPos.y); 
+    if (distFromCenter.x > maxDistFromCenter) {
+      cameraPos.set(
+        particlePos.x - halfScreen.x - maxDistFromCenter,
+        cameraPos.y
+      );
     }
-    if (distFromCenter.y < -maxDistFromCenter){
-      cameraPos.set(cameraPos.x, particlePos.y - halfScreen.y + maxDistFromCenter); 
+    if (distFromCenter.y < -maxDistFromCenter) {
+      cameraPos.set(
+        cameraPos.x,
+        particlePos.y - halfScreen.y + maxDistFromCenter
+      );
     }
-    if (distFromCenter.y > maxDistFromCenter){
-      cameraPos.set(cameraPos.x, particlePos.y - halfScreen.y - maxDistFromCenter); 
+    if (distFromCenter.y > maxDistFromCenter) {
+      cameraPos.set(
+        cameraPos.x,
+        particlePos.y - halfScreen.y - maxDistFromCenter
+      );
     }
-  }
+  };
 
   const draw = (p5: p5Types) => {
     keyPressed(p5);

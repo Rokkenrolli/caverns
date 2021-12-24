@@ -17,12 +17,13 @@ const App = () => {
 
     inner();
   }, []);
+  const victoryText =
+    "Onneksi Olkoon!\n Olette voittaneet, ja palkinnoksi...\n Upgrade!";
 
-  /*
   setInterval(() => {
     setVictory(true);
   }, 2000);
-*/
+
   return (
     <div className={styles.background}>
       <div className={styles.container}>
@@ -30,12 +31,18 @@ const App = () => {
           <MainSketch
             setVictory={setVictory}
             wallProps={map.boundaries}
-            width={map.width}
-            height={map.height}
+            canvasWidth={map.canvasWidth}
+            canvasHeight={map.canvasHeight}
+            areaHeight={map.areaHeight}
+            areaWidth={map.areaWidth}
           />
         )}
 
-        <VictoryScreen enabled={victory} />
+        <VictoryScreen
+          textClassName={styles.AnimateTextContainer}
+          victoryText={victoryText}
+          enabled={victory}
+        />
       </div>
     </div>
   );

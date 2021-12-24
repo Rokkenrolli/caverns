@@ -13,3 +13,17 @@
     margin:1em;
     height:80vh;
 }
+
+.AnimateTextContainer > * {
+    visibility:hidden;
+    animation: Bring-out 300ms ease-in forwards;
+}
+
+@keyframes Bring-out {
+    0% {
+        visibility: hidden;
+    }
+     100% {
+         visibility: visible;
+     }
+}

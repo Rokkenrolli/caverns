@@ -1,4 +1,4 @@
-w800 h800
+cw800 ch800 aw2000 ah2000 
 xf0 xs1000 yf0 ys1000 sbtrue
 xf0 xs1000 yf100 ys1010 sbtrue
 end

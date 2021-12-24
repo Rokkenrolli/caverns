@@ -23,8 +23,10 @@ export interface MaxPoints {
 }
 
 export interface Map {
-    width:number
-    height:number
+    canvasWidth:number
+    canvasHeight:number
+    areaHeight: number
+    areaWidth:number
     boundaries: BoundaryProps[]
 }
 
@@ -37,7 +39,7 @@ export interface BoundaryProps {
 }
 
 
-export type HeaderSymbols = "w" | "h" 
+export type HeaderSymbols = "cw" | "ch" | "aw" | "ah" 
 export type RowSymbols = "xf" |"xs" | "yf" |"ys" |"sb"
 
 export const parseMapFile = (text:string):Map=> {
@@ -86,18 +88,24 @@ const parseRow = (row:String):BoundaryProps => {
 }
 
 const parseHeader = (header:string):Map => {
-    const map:Map = {width:0, height:0, boundaries:[]}
+    const map:Map = {areaWidth:0, areaHeight:0, canvasHeight:0, canvasWidth:0, boundaries:[]}
     console.log(header)
     const rows = header.split(" ")
     rows.forEach(p => {
-        const elementType = p[0] as HeaderSymbols
-        const body = p.slice(1)
+        const elementType = p.slice(0,2) as HeaderSymbols
+        const body = p.slice(2)
         switch (elementType) {
-            case "h":
-                map.height = Number(body)
+            case "ch":
+                map.canvasHeight = Number(body)
             break;
-            case "w":
-                map.width = Number(body)
+            case "cw":
+                map.canvasWidth = Number(body)
+            break;
+            case "aw":
+                map.areaWidth = Number(body)
+            break;
+            case "ah":
+                map.areaHeight = Number(body)
             break;
 
         }
