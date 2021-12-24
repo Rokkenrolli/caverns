@@ -48,19 +48,24 @@ class Boundary {
       this.maxPoints.distance = 0
     }
 
-    show(p5:p5Types) {
+    show(p5:p5Types, cameraPos: p5Types.Vector) {
+      let a = this.a.copy();
+      let b = this.b.copy();
+      a.sub(cameraPos);
+      b.sub(cameraPos);
       p5.stroke(255)
       if (this.fullyVisible) {
-        p5.line(this.a.x,this.a.y,this.b.x,this.b.y)
+        p5.line(a.x,a.y,b.x,b.y)
         return
       }
       if (!(this.maxPoints.p1 &&this.maxPoints.p2)) {
         return
       }
       
-      const first = this.maxPoints.p1 || p5.createVector(this.maxPoints.p2.x+1, this.maxPoints.p2.y+1)
-      const second = this.maxPoints.p2 || p5.createVector(this.maxPoints.p1.x+1, this.maxPoints.p1.y+1) 
-
+      let first = this.maxPoints.p1 || p5.createVector(this.maxPoints.p2.x+1, this.maxPoints.p2.y+1)
+      let second = this.maxPoints.p2 || p5.createVector(this.maxPoints.p1.x+1, this.maxPoints.p1.y+1) 
+      first.sub(cameraPos);
+      second.sub(cameraPos);
       p5.line(first.x,first.y,second.x,second.y)
     }
   }

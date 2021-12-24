@@ -1,3 +1,4 @@
+import { dir } from "console"
 import p5Types from "p5"
 import { Hit } from "../utils"
 import Boundary from "./Boundary"
@@ -32,8 +33,8 @@ class Particle {
       this.angle += angle
     }
 
-    onKeyDown = (p5:p5Types, tiltAmount =2, multAmount=0.1) => {
-      const dirvec= p5Types.Vector.fromAngle(this.angle).mult(multAmount) 
+    onKeyDown = (p5:p5Types, tiltAmount =2, multAmount=1.3) => {
+      const dirvec= p5Types.Vector.fromAngle(this.angle+Math.PI/4).mult(multAmount) 
       
       if(p5.keyIsDown(p5.LEFT_ARROW)) {
         this.tiltAngle(p5.radians(-tiltAmount))
@@ -43,11 +44,12 @@ class Particle {
       }
       if(p5.keyIsDown(p5.UP_ARROW)) {
         console.log(`current angle vector (${dirvec.x}, ${dirvec.y})`)
-        this.pos.add(dirvec)
+        this.pos.add(dirvec.x, dirvec.y, dirvec.z)
+        console.log(this.pos)
       }
       if(p5.keyIsDown(p5.DOWN_ARROW)) {
         console.log(`current angle vector ${dirvec}`)
-        this.pos.sub(dirvec)
+        this.pos.sub(dirvec.x, dirvec.y, dirvec.z)
 
       }
         
@@ -88,16 +90,10 @@ class Particle {
     
     }
 
-    look(p5:p5Types,walls: Boundary[], useRadius:boolean = false) {
-      
-      let  casted_rays = 0
-      let casted_wall = 0
+    look(p5:p5Types,walls: Boundary[], cameraPos: p5Types.Vector) {
+    
       for (let ray of this.rays) {
         let hit: Hit = {closest:undefined, distance: Infinity, wall: undefined}
-        if (useRadius) {
-          hit.closest = p5Types.Vector.add(this.pos,p5Types.Vector.mult(ray.dir,  this.visionRadius))
-          hit.distance = this.visionRadius
-        }
         
         walls.forEach(wall  =>  {
           wall.fullyVisible = this.isFullyVisible(wall)
@@ -113,28 +109,32 @@ class Particle {
         })
         
         if (hit.closest) {
+          let relPos = this.pos.copy();
+          let relHit = hit.closest.copy();
+          relPos.sub(cameraPos);
+          relHit.sub(cameraPos);
           p5.stroke(255, ray.alpha)
           p5.strokeWeight(2)
-          p5.line(this.pos.x, this.pos.y, hit.closest.x, hit.closest.y)
+          p5.line(relPos.x, relPos.y, relHit.x, relHit.y)
           if (hit.wall) {
             hit.wall.addPoint(hit.closest)
-            casted_wall +=1
 
           }
-          casted_rays +=1
         }
 
       }
       //console.log(`number of rays: ${this.rays.length}, number of casted rays: ${casted_rays}, number of casted walls ${casted_wall}`)
     }
     
-    show(p5:p5Types) {
+    show(p5:p5Types, cameraPos: p5Types.Vector) {
+      let relPos = this.pos.copy();
+      relPos.sub(cameraPos);
       p5.noStroke()
       p5.fill(255)
-      p5.ellipse(this.pos.x, this.pos.y, this.size)
+      p5.ellipse(relPos.x, relPos.y, this.size)
       p5.stroke(255, 40)
       p5.noFill()
-      p5.ellipse(this.pos.x,this.pos.y,this.visionRadius*2)
+      p5.ellipse(relPos.x,relPos.y,this.visionRadius*2)
      
     }
 
