@@ -17,8 +17,7 @@ const App = () => {
 
     inner();
   }, []);
-  const victoryText =
-    "Onneksi Olkoon!\n Olette voittaneet, ja palkinnoksi...\n Upgrade!";
+  const victoryText = "Onneksi Olkoon!\n Olette voittaneet, ja palkinnoksi...";
 
   return (
     <div className={styles.background}>
