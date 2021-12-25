@@ -18,8 +18,14 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
         const style: React.CSSProperties = {
           animationDelay: `${(initialDelay + i * delayIncrement).toString()}s`,
         };
-        return <span style={style}>{c}</span>;
+        return (
+          <span key={i} style={style}>
+            {c}
+          </span>
+        );
       })}
+
+      {children}
     </div>
   );
 };

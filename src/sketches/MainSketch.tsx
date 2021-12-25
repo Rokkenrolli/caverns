@@ -128,7 +128,7 @@ const MainSketch: React.FC<ComponentProps> = ({
     }
 
     const victory = checkVictory();
-    drawBall(p5, 255, 1900 - cameraPos.x, 100 - cameraPos.y);
+    drawBall(p5, 255, 1940 - cameraPos.x, 80 - cameraPos.y);
     console.log(particle.pos.x, particle.pos.y);
     if (victory) {
       setVictory(true);

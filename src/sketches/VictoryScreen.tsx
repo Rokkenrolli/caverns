@@ -2,7 +2,7 @@ import styles from "../styles/victory.module.css";
 import classnames from "classnames";
 import AnimatedText from "../components/AnimatedText";
 import img from "../images/paper2.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 interface VictoryProps {
   enabled: boolean;
   victoryText: string;
@@ -19,9 +19,12 @@ const VictoryScreen: React.FC<VictoryProps> = ({
 
   const [textFinished, setTextFinished] = useState(false);
 
-  setInterval(() => {
-    setTextFinished(true);
-  }, 6000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextFinished(enabled);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [enabled]);
 
   const imgClassname = classnames(styles.spinning, {
     [styles.active]: textFinished,
@@ -38,15 +41,13 @@ const VictoryScreen: React.FC<VictoryProps> = ({
         />
       )}
       {enabled && <img className={imgClassname} src={img} alt="palkinto" />}
-      {enabled && (
-        <h1
-          className={classnames(styles.upgrade, {
-            [styles.upgactive]: textFinished,
-          })}
-        >
-          Upgraded
-        </h1>
-      )}
+      <h1
+        className={classnames(styles.upgrade, {
+          [styles.upgactive]: textFinished,
+        })}
+      >
+        Upgraded
+      </h1>
     </div>
   );
 };
